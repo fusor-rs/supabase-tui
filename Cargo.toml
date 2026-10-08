@@ -9,7 +9,7 @@ readme = "README.md"
 repository = "https://github.com/fusor-rs/supabase-tui"
 keywords = ["supabase", "postgres", "terminal", "tui"]
 categories = ["command-line-utilities", "database"]
-include = ["src/**", "ui/**", "assets/**", "build.rs", "Cargo.toml", "Cargo.lock", "LICENSE", "README.md"]
+include = ["src/**", "ui/**", "assets/**", "build.rs", "install.sh", "Cargo.toml", "Cargo.lock", "LICENSE", "README.md"]
 
 [[bin]]
 name = "supatui"
