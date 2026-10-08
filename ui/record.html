@@ -1,0 +1,29 @@
+<template rust:component="Record">
+  <section class="overlay">
+    <div class="dialog">
+      <div class="dialog-heading">
+        <h2 class="dialog-title">{{ state.console.record_title() }}</h2>
+        <button on:click="state.console.close_overlay()">Close  Esc</button>
+      </div>
+      <section id="record" class="fields" tabindex="0" autofocus>
+        <div class="field-list">
+          <ForEach items="{{ state.console.record_fields() }}"
+                   key="{{ |field| field.name.clone() }}">
+            <div class="field">
+              <p class="field-name">{{ item.get().name }}</p>
+              <p class="field-value">{{ item.get().value }}</p>
+            </div>
+          </ForEach>
+        </div>
+        <If condition="{{ !state.console.record_link().is_empty() }}">
+          <p class="record-link">
+            <a href="{{ state.console.record_link() }}">Open in your browser</a>
+          </p>
+        </If>
+        <If condition="{{ !state.console.record_body().is_empty() }}">
+          <p class="record-body">{{ state.console.record_body() }}</p>
+        </If>
+      </section>
+    </div>
+  </section>
+</template>

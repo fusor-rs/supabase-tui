@@ -1,0 +1,12 @@
+<template rust:component="Confirm">
+  <section class="overlay">
+    <div class="dialog confirm">
+      <h2 class="dialog-title">Are you sure?</h2>
+      <p class="question">{{ state.console.confirmation_question() }}</p>
+      <div class="dialog-actions">
+        <button class="danger" on:click="state.console.confirm()">Yes  y</button>
+        <button autofocus on:click="state.console.close_overlay()">Cancel  Esc</button>
+      </div>
+    </div>
+  </section>
+</template>

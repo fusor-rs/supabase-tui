@@ -1,0 +1,41 @@
+<template rust:component="GridView">
+  <section class="grid-view">
+    <div class="search" class:hidden="{{ !state.console.searching() }}">
+      <p class="search-prompt">{{ state.console.search_prompt() }}</p>
+      <input id="search" bind="state.console.search_text"
+             on:input="state.console.filter_changed()"
+             on:keydown="state.console.submit_search(&event)">
+    </div>
+    <section id="grid" tabindex="0" autofocus on:resize="state.console.resize(&event)"
+             on:keydown="state.console.navigate(&event)"
+             on:scroll="state.console.navigate(&event)">
+      <table>
+        <thead>
+          <tr>
+            <ForEach items="{{ state.console.headings() }}" key="{{ |cell| cell.column }}">
+              <th>{{ item.get().text }}</th>
+            </ForEach>
+          </tr>
+        </thead>
+        <tbody>
+          <ForEach items="{{ state.console.rows() }}" key="{{ |row| row.index }}">
+            <tr class:selected="{{ item.get().selected }}">
+              <ForEach items="{{ item.get().cells }}" key="{{ |cell| cell.column }}">
+                <td class:flag-warning="{{ item.get().flag == Flag::Warning }}"
+                    class:flag-danger="{{ item.get().flag == Flag::Danger }}">{{
+                  item.get().text
+                }}</td>
+              </ForEach>
+            </tr>
+          </ForEach>
+        </tbody>
+      </table>
+      <If condition="{{ !state.console.listing_message().is_empty() }}">
+        <p class="message" class:error="{{ state.console.listing_failed() }}">{{
+          state.console.listing_message()
+        }}</p>
+      </If>
+    </section>
+    <p class="position">{{ state.console.position() }}</p>
+  </section>
+</template>

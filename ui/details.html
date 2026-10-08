@@ -1,0 +1,6 @@
+<template rust:component="Details">
+  <div class="details" class:tall="{{ !state.console.details_text().is_empty() }}">
+    <p class="details-title">{{ state.console.details_title() }}</p>
+    <p class="details-text">{{ state.console.details_text() }}</p>
+  </div>
+</template>

@@ -1,0 +1,34 @@
+<template rust:component="StatusBar">
+  <section class="status-bar">
+    <div class="status-line">
+      <p class="project-name">{{ state.console.project_name() }}</p>
+      <p class="project-status"
+         class:paused="{{ state.console.project_condition() == Some(Condition::Paused) }}"
+         class:changing="{{ state.console.project_condition() == Some(Condition::Changing) }}"
+         class:down="{{ state.console.project_condition() == Some(Condition::Down) }}">{{
+        state.console.project_status()
+      }}</p>
+      <p class="project-details">{{ state.console.project_details() }}</p>
+      <If condition="{{ state.console.restorable() }}">
+        <button class="primary" on:click="state.console.restore()">Restore  R</button>
+      </If>
+    </div>
+    <div class="health-line">
+      <p class="health-label">Services</p>
+      <div class="services">
+        <ForEach items="{{ state.console.health.get() }}"
+                 key="{{ |service| service.name.clone() }}">
+          <p class="service" class:down="{{ !item.get().healthy }}">{{
+            if item.get().healthy { "●" } else { "✕" }
+          }} {{ item.get().name }}</p>
+        </ForEach>
+      </div>
+      <p class="health-note">{{ state.console.health_note() }}</p>
+      <p class="advice-fill"></p>
+      <p class="advice" class:down="{{ state.console.advice_has_errors() }}"
+         class:changing="{{ state.console.advice_has_warnings() }}">{{
+        state.console.advice_text()
+      }}</p>
+    </div>
+  </section>
+</template>

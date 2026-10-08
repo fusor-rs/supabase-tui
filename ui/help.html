@@ -1,0 +1,22 @@
+<template rust:component="Help">
+  <section class="overlay">
+    <div class="dialog">
+      <div class="dialog-heading">
+        <h2 class="dialog-title">Keys</h2>
+        <button autofocus on:click="state.console.close_overlay()">Close  Esc</button>
+      </div>
+      <pre class="keys">1 – 8      open a section            ↑ ↓ PgUp PgDn   choose a row
+2          SQL editor                ← →             scroll columns
+Ctrl+R     run the SQL               Enter           open the row, table, folder
+/          filter these rows         f               find users or files
+Esc        clear, leave, go back     r               refresh
+R          restore a paused project  Tab             sidebar ⇄ grid
+?          keys                      q               quit
+
+Users      i invite · p password reset · m magic link · b ban or unban · D delete
+Storage    o open in browser · u signed URL (1 hour) · d download to ~/Downloads</pre>
+      <p class="dialog-hint">The SQL editor is read-only until you clear its Read-only box.
+        Emails, bans and deletions ask first.</p>
+    </div>
+  </section>
+</template>

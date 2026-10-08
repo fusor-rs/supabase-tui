@@ -1,0 +1,24 @@
+<template rust:component="Welcome">
+  <section class="welcome">
+    <div class="welcome-card">
+      <pre class="welcome-logo">{{ LOGO.trim_end_matches('\n') }}</pre>
+      <h1 class="welcome-title">supabase-tui</h1>
+      <p class="welcome-tagline">Your Supabase projects, in the terminal.</p>
+      <If condition="{{ state.console.asks_for_token() }}">
+        <div class="token-form">
+          <p class="welcome-hint">Paste a personal access token.
+            <a href="{{ TOKENS_PAGE }}">Create one in the dashboard</a></p>
+          <input id="token" autofocus bind="state.console.token_draft"
+                 class:placeholder="{{ state.console.token_draft.with(String::is_empty) }}"
+                 on:keydown="state.console.submit_token(&event)" placeholder="sbp_…">
+          <button class="primary" on:click="state.console.log_in()">Connect  ↵</button>
+        </div>
+      </If>
+      <p class="welcome-status"
+         class:error="{{ matches!(state.console.screen.get(), Screen::Failed(_)) }}">{{
+        state.console.welcome_status()
+      }}</p>
+      <p class="welcome-note">{{ TOKEN_VARIABLE }} is used when set · Ctrl+C quits</p>
+    </div>
+  </section>
+</template>

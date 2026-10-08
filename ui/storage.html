@@ -1,0 +1,21 @@
+<template rust:component="StoragePanel">
+  <div class="panel">
+    <div class="path">
+      <ForEach items="{{ state.console.crumbs() }}" key="{{ |crumb| crumb.position }}">
+        <button class="crumb" on:click="state.console.return_to(item.get().target)">{{
+          if item.get().position == 0 { "" } else { "/ " }
+        }}{{ item.get().label }}</button>
+      </ForEach>
+    </div>
+    <div class="toolbar">
+      <button class="tool" on:click="state.console.open_find()">Find files  f</button>
+      <button class="tool" disabled="{{ !state.console.file_selected() }}"
+              on:click="state.console.open_file()">Open in browser  o</button>
+      <button class="tool" disabled="{{ !state.console.file_selected() }}"
+              on:click="state.console.share_file()">Signed URL  u</button>
+      <button class="tool" disabled="{{ !state.console.file_selected() }}"
+              on:click="state.console.download_file()">Download  d</button>
+      <p class="hint">Enter opens · / filters</p>
+    </div>
+  </div>
+</template>

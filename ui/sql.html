@@ -1,0 +1,13 @@
+<template rust:component="SqlPanel">
+  <div class="editor">
+    <textarea id="sql" autofocus bind="state.console.sql"></textarea>
+    <div class="toolbar">
+      <button class="primary" on:click="state.console.run_sql()">Run  ^R</button>
+      <label class="read-only">
+        <input type="checkbox" bind="state.console.read_only">
+        <p>Read-only</p>
+      </label>
+      <p class="hint">{{ state.console.access_hint() }} · Esc leaves the editor</p>
+    </div>
+  </div>
+</template>

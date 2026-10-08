@@ -1,0 +1,16 @@
+<template rust:component="UsersPanel">
+  <div class="panel">
+    <div class="toolbar">
+      <button class="tool" on:click="state.console.open_find()">Find  f</button>
+      <button class="tool" on:click="state.console.open_invite()">Invite  i</button>
+      <button class="tool" disabled="{{ !state.console.user_selected() }}"
+              on:click="state.console.ask(UserAction::SendRecovery)">Reset password  p</button>
+      <button class="tool" disabled="{{ !state.console.user_selected() }}"
+              on:click="state.console.ask(UserAction::SendMagicLink)">Magic link  m</button>
+      <button class="tool" disabled="{{ !state.console.user_selected() }}"
+              on:click="state.console.ask(UserAction::Ban)">{{ state.console.ban_label() }}</button>
+      <button class="tool destructive" disabled="{{ !state.console.user_selected() }}"
+              on:click="state.console.ask(UserAction::Delete)">Delete  D</button>
+    </div>
+  </div>
+</template>

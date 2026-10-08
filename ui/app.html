@@ -1,0 +1,56 @@
+<template rust:component="Console">
+  <main on:keydown="state.shortcut(&event)" on:resize="state.attach(&event)">
+    <If condition="{{ state.screen.get() != Screen::Console }}">
+      <Welcome console="{{ state.clone() }}"></Welcome>
+    </If>
+    <If condition="{{ state.screen.get() == Screen::Console }}">
+      <div class="topbar">
+        <p class="brand">⚡ supabase-tui</p>
+        <p class="crumbs">{{ state.project_name() }}</p>
+        <p class="topbar-fill"></p>
+        <button on:click="state.open_section(Section::Sql)">SQL  2</button>
+        <button on:click="state.refresh()">Refresh  r</button>
+        <button on:click="state.open_help()">Keys  ?</button>
+      </div>
+      <div class="body" class:hidden="{{ state.overlay.get() != Overlay::None }}">
+        <Sidebar console="{{ state.clone() }}"></Sidebar>
+        <section class="pane">
+          <div class="pane-heading">
+            <h2 class="pane-title">{{ state.listing_title() }}</h2>
+            <p class="summary">{{ state.listing_summary() }}</p>
+          </div>
+          <If condition="{{ state.view() == View::Sql }}">
+            <SqlPanel console="{{ state.clone() }}"></SqlPanel>
+          </If>
+          <If condition="{{ state.view() == View::Storage }}">
+            <StoragePanel console="{{ state.clone() }}"></StoragePanel>
+          </If>
+          <If condition="{{ state.view() == View::Users }}">
+            <UsersPanel console="{{ state.clone() }}"></UsersPanel>
+          </If>
+          <If condition="{{ state.view() == View::Advisors }}">
+            <AdvisorsPanel console="{{ state.clone() }}"></AdvisorsPanel>
+          </If>
+          <GridView console="{{ state.clone() }}"></GridView>
+          <If condition="{{ state.view().has_details() }}">
+            <Details console="{{ state.clone() }}"></Details>
+          </If>
+        </section>
+      </div>
+      <If condition="{{ state.overlay.get() == Overlay::Help }}">
+        <Help console="{{ state.clone() }}"></Help>
+      </If>
+      <If condition="{{ matches!(state.overlay.get(), Overlay::Record(_)) }}">
+        <Record console="{{ state.clone() }}"></Record>
+      </If>
+      <If condition="{{ matches!(state.overlay.get(), Overlay::Confirm(_)) }}">
+        <Confirm console="{{ state.clone() }}"></Confirm>
+      </If>
+      <If condition="{{ state.overlay.get() == Overlay::Invite }}">
+        <Invite console="{{ state.clone() }}"></Invite>
+      </If>
+      <StatusBar console="{{ state.clone() }}"></StatusBar>
+      <p class="notice" class:error="{{ state.notice_is_error() }}">{{ state.notice_text() }}</p>
+    </If>
+  </main>
+</template>

@@ -1,0 +1,29 @@
+<template rust:component="Sidebar">
+  <section class="sidebar" on:keydown="state.console.leave_sidebar(&event)">
+    <p class="pane-label">PROJECT</p>
+    <div class="sections">
+      <ForEach items="{{ Section::ALL.to_vec() }}" key="{{ |section| section.shortcut() }}">
+        <button class="entry"
+                class:changing="{{ state.console.section_flagged(item.get()) }}"
+                class:current="{{ state.console.is_section(item.get()) }}"
+                on:click="state.console.open_section(item.get())">{{
+          state.console.section_label(item.get())
+        }}</button>
+      </ForEach>
+    </div>
+    <p class="pane-label projects-label">PROJECTS</p>
+    <div id="projects">
+      <ForEach items="{{ state.console.projects.get() }}"
+               key="{{ |project| project.reference.to_string() }}">
+        <button class="entry"
+                class:paused="{{ item.get().status.condition() == Condition::Paused }}"
+                class:changing="{{ item.get().status.condition() == Condition::Changing }}"
+                class:down="{{ item.get().status.condition() == Condition::Down }}"
+                class:current="{{ state.console.is_project(&item.get()) }}"
+                on:click="state.console.open_project(item.get())">{{
+          project_entry(&item.get())
+        }}</button>
+      </ForEach>
+    </div>
+  </section>
+</template>

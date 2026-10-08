@@ -1,0 +1,14 @@
+<template rust:component="AdvisorsPanel">
+  <div class="panel">
+    <div class="toolbar">
+      <p class="findings"
+         class:flag-danger="{{ state.console.advice_has_errors() }}"
+         class:flag-warning="{{ state.console.advice_has_warnings() }}">{{
+        state.console.advice_summary()
+      }}</p>
+      <p class="toolbar-fill"></p>
+      <button class="tool" disabled="{{ !state.console.has_fix() }}"
+              on:click="state.console.open_fix()">Open the fix  o</button>
+    </div>
+  </div>
+</template>

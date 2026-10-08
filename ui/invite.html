@@ -1,0 +1,15 @@
+<template rust:component="Invite">
+  <section class="overlay">
+    <div class="dialog confirm">
+      <h2 class="dialog-title">Invite a user</h2>
+      <p class="dialog-hint">Auth emails an invitation link to this address.</p>
+      <input id="invite" autofocus bind="state.console.invite_draft"
+             class:placeholder="{{ state.console.invite_draft.with(String::is_empty) }}"
+             on:keydown="state.console.submit_invite(&event)" placeholder="name@example.com">
+      <div class="dialog-actions">
+        <button class="primary" on:click="state.console.send_invite()">Send  ↵</button>
+        <button on:click="state.console.close_overlay()">Cancel  Esc</button>
+      </div>
+    </div>
+  </section>
+</template>
